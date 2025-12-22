@@ -110,9 +110,10 @@ footer {
 <section class="card">
   <h2>🎵 Our Song</h2>
   <p>“Those Eyes” — New West</p>
-  <audio controls>
-    <source src="those-eyes.mp3" type="audio/mpeg">
-  </audio>
+  <audio controls preload="metadata">
+  <source src="./those-eyes.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
   <p style="font-size:0.9em; opacity:0.8;">
     (Put the song file in the same folder)
   </p>
@@ -196,4 +197,5 @@ setInterval(() => {
 </script>
 
 </body>
+
 </html>

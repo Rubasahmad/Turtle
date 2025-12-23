@@ -41,26 +41,36 @@ body{
   50%{transform:translateX(6px)}
 }
 
-/* UI */
+/* SECTIONS */
 section{
   padding:60px 20px;
-  opacity:0;transform:translateY(40px);
+  opacity:0;
+  transform:translateY(40px);
   transition:1s;
 }
 section.show{opacity:1;transform:none}
 
-h1{font-family:'Pacifico',cursive;font-size:3em}
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:3em;
+}
 
 .card{
   background:rgba(255,255,255,.1);
-  padding:25px;border-radius:15px;
-  max-width:650px;margin:30px auto;
+  padding:25px;
+  border-radius:15px;
+  max-width:650px;
+  margin:30px auto;
 }
 
 button{
-  padding:12px 25px;border:none;border-radius:30px;
-  background:#ff7eb3;color:white;
-  cursor:pointer;margin-top:15px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff7eb3;
+  color:white;
+  cursor:pointer;
+  margin-top:15px;
 }
 button:hover{transform:scale(1.1)}
 
@@ -68,7 +78,8 @@ button:hover{transform:scale(1.1)}
 
 /* HEARTS */
 .heart{
-  position:fixed;bottom:-20px;
+  position:fixed;
+  bottom:-20px;
   font-size:20px;
   animation:floatUp 6s linear infinite;
 }
@@ -78,7 +89,8 @@ button:hover{transform:scale(1.1)}
 
 /* CONFETTI */
 .confetti{
-  position:fixed;top:-10px;
+  position:fixed;
+  top:-10px;
   font-size:18px;
   animation:fall 4s linear infinite;
 }
@@ -93,15 +105,21 @@ button:hover{transform:scale(1.1)}
   to{text-shadow:0 0 30px #ffd1e8}
 }
 
-audio{width:100%;max-width:400px}
+audio{
+  width:100%;
+  max-width:400px;
+}
 
-footer{opacity:.7;padding-bottom:40px}
+footer{
+  opacity:.7;
+  padding-bottom:40px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- LOCK -->
+<!-- PASSWORD LOCK -->
 <div id="lock">
   <div id="lockBox">
     <h2>💙 Enter Your Name 💙</h2>
@@ -112,11 +130,13 @@ footer{opacity:.7;padding-bottom:40px}
   </div>
 </div>
 
+<!-- HERO -->
 <section>
   <h1>Happy Birthday Eshal 🐢💙</h1>
   <p>From <b>Motu & Cutesuii</b>, always.</p>
 </section>
 
+<!-- COUNTDOWN -->
 <section class="card">
   <h2>🎂 Countdown</h2>
   <p id="countdown">Loading...</p>
@@ -134,24 +154,26 @@ footer{opacity:.7;padding-bottom:40px}
   </p>
 </section>
 
-<!-- CASUAL MESSAGE -->
+<!-- CASUAL MESSAGE (EXACT FROM IMAGE) -->
 <section class="card" id="letter">
   <h2>💙 A Message From Me</h2>
   <p style="line-height:1.7;">
-    yooo eshuu turtle it’s yo boy rubas😭🫶🏼🎀 motuu😭🫶🏼🎀<br><br>
-    ilysmm yoii umm yoii u really means alot to me 😭🫶🏼😭🎀<br><br>
-    mujhe apke sath guzara hua har ek pal yaad hai and it’s the best memory of my life😭🫶🏼🫶🏼😭🎀🎀🎀<br><br>
-    abhi tow humnee or boht see memories sath bnanii hai😭🫶🏼😭🎀<br><br>
-    ilysmmm😭🫶🏼😭🎀🎀
+    yooo eshuu turtle it’s yo boy rubas😭🙈🎀 motuu😭🙈🎀<br><br>
+    ilysmm yoii umm yoii u really means alot to me 😭🙈😭🎀<br><br>
+    mujhe apke sath guzara hua har ek pal yaad hai and it’s the best memory of my life 😭🙈😭🎀🎀🎀<br><br>
+    abhi tow humnee or boht see memories sath bnanii hai 😭🙈😭🎀<br><br>
+    yk after 6-7 years kya hoga 😼🙈😭 lol<br><br>
+    khair btw ilysmm yoiii and mai kch krr nhi sakta tha tow bss ek chota sa gift umm it’s not that good bss ek chota mota sa gift<br><br>
+    ilysmmm😭🙈😭🎀🎀
   </p>
   <p style="opacity:.8">— your Motu (Rubas) 🐢💙</p>
 </section>
 
-<!-- VOICE -->
+<!-- VOICE MESSAGE -->
 <section class="card">
   <h2>🎤 Hear My Voice</h2>
   <audio id="voice" controls>
-    <source src="voice-message.mp3">
+    <source src="voice-message.mp3" type="audio/mpeg">
   </audio>
 </section>
 
@@ -159,7 +181,7 @@ footer{opacity:.7;padding-bottom:40px}
 <section class="card">
   <h2>🎵 Our Song</h2>
   <audio id="song" controls>
-    <source src="those-eyes.mp3">
+    <source src="those-eyes.mp3" type="audio/mpeg">
   </audio>
 </section>
 
@@ -186,7 +208,9 @@ footer{opacity:.7;padding-bottom:40px}
   <p>I choose you — always 🐢💙</p>
 </section>
 
-<footer>Made with love by Motu 🐢💙</footer>
+<footer>
+  Made with love by Motu 🐢💙
+</footer>
 
 <script>
 /* UNLOCK */
@@ -200,17 +224,20 @@ function unlock(){
   }
 }
 
-/* COUNTDOWN + CONFETTI */
+/* COUNTDOWN + MIDNIGHT CONFETTI */
 const birthday=new Date("December 29, 2025 00:00:00").getTime();
 setInterval(()=>{
   const now=Date.now();
   const diff=birthday-now;
+
   if(diff<=0){
     countdown.innerHTML="🎉 Happy Birthday Eshal 🐢💙";
     countdown.classList.add("glow");
     surprise.classList.remove("hidden");
-    launchConfetti();return;
+    launchConfetti();
+    return;
   }
+
   const d=Math.floor(diff/86400000);
   const h=Math.floor(diff/3600000)%24;
   const m=Math.floor(diff/60000)%60;
@@ -230,7 +257,7 @@ function launchConfetti(){
   },200);
 }
 
-/* TURTLE */
+/* TURTLE BUTTON */
 function showTurtle(){
   turtleText.classList.remove("hidden");
 }
@@ -245,15 +272,17 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),6000);
 },500);
 
-/* SCROLL */
-const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add("show")));
+/* SCROLL ANIMATION */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>x.isIntersecting&&x.target.classList.add("show"))
+});
 document.querySelectorAll("section").forEach(s=>obs.observe(s));
 
 /* AUDIO FADE */
 function fade(a,t){
-  const s=(t-a.volume)/20;
+  const step=(t-a.volume)/20;
   const i=setInterval(()=>{
-    a.volume=Math.min(1,Math.max(0,a.volume+s));
+    a.volume=Math.min(1,Math.max(0,a.volume+step));
     if(Math.abs(a.volume-t)<0.02)clearInterval(i);
   },50);
 }
@@ -263,6 +292,7 @@ voice.onended=()=>fade(song,1);
 
 </body>
 </html>
+
 
 
 

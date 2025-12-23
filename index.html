@@ -8,35 +8,82 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: 'Playfair Display', serif;
   background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
   color: white;
   text-align: center;
+  overflow-x: hidden;
 }
 
-section {
-  padding: 60px 20px;
+/* PASSWORD */
+#lock {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #0f2027, #203a43);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+#lockBox {
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+}
+#lock input {
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  margin-top: 10px;
+  text-align: center;
+}
+#error {
+  display: none;
+  color: #ff9aa2;
+  margin-top: 10px;
+}
+.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
 }
 
-h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 3em;
-}
-
+/* BUTTON */
 button {
   padding: 12px 25px;
   background: #ff7eb3;
   border: none;
   border-radius: 30px;
-  font-size: 1em;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(255,126,179,0.5);
 }
 
-button:hover {
-  background: #ff4f9a;
+/* SECTIONS */
+section {
+  padding: 60px 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3em;
 }
 
 .card {
@@ -47,16 +94,46 @@ button:hover {
   margin: 30px auto;
 }
 
-#countdown {
-  font-size: 1.5em;
+.hidden { display: none; }
+
+/* GLOW */
+.glow {
+  animation: glow 1.5s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff7eb3; }
+  to { text-shadow: 0 0 30px #ffd1e8; }
 }
 
-.hidden {
-  display: none;
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* CONFETTI */
+.confetti {
+  position: fixed;
+  top: -10px;
+  font-size: 18px;
+  animation: fall 4s linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* AUDIO */
+audio {
+  width: 100%;
+  max-width: 400px;
 }
 
 footer {
-  font-size: 0.8em;
   opacity: 0.7;
   padding-bottom: 40px;
 }
@@ -65,137 +142,151 @@ footer {
 
 <body>
 
-<!-- LANDING -->
+<!-- LOCK -->
+<div id="lock">
+  <div id="lockBox">
+    <h2>💙 Enter Your Name 💙</h2>
+    <input id="pass" placeholder="Hint: Eshal">
+    <br>
+    <button onclick="unlock()">Unlock 🐢</button>
+    <div id="error">Wrong 😭🐢</div>
+  </div>
+</div>
+
 <section>
   <h1>Happy Birthday Eshal 🐢💙</h1>
   <p>From <b>Motu & Cutesuii</b>, always.</p>
 </section>
 
-<!-- COUNTDOWN -->
 <section class="card">
-  <h2>🎂 Countdown to Your Day</h2>
+  <h2>🎂 Countdown</h2>
   <p id="countdown">Loading...</p>
 </section>
 
-<!-- LETTER -->
-<section class="card">
-  <h2>💌 A Letter for You</h2>
-  <p>
-    Happy Birthday, my Eshal 🐢💙<br><br>
-    Even though I can’t be there in person, my heart is always with you.
-    You make my days brighter, my nights calmer, and my life happier.
-    I hope you always know how deeply loved you are —<br><br>
-    by your <b>Motu & Cutesuii</b>, forever.
-  </p>
-</section>
-
-<!-- PERSONAL MESSAGE -->
-<section class="card">
+<section class="card" id="letter">
   <h2>💙 A Message From Me</h2>
   <p style="line-height:1.7;">
     yooo eshuu turtle it’s yo boy rubas😭🫶🏼🎀 motuu😭🫶🏼🎀<br><br>
     ilysmm yoii umm yoii u really means alot to me 😭🫶🏼😭🎀<br><br>
     mujhe apke sath guzara hua har ek pal yaad hai and it’s the best memory of my life😭🫶🏼🫶🏼😭🎀🎀🎀<br><br>
     abhi tow humnee or boht see memories sath bnanii hai😭🫶🏼😭🎀<br><br>
-    yk after 6-7 years kya hoga😼🙈😭😭 lol<br><br>
-    khair btw ilysmm yoiii and mai kch krr nhi sakta tha tow bss ek chota sa gift umm it’s not that good bss ek chota mota sa gift<br><br>
     ilysmmm😭🫶🏼😭🎀🎀
   </p>
-  <p style="margin-top:15px; opacity:0.8;">
-    — your Motu (Rubas) 🐢💙
-  </p>
+  <p style="opacity:0.8;">— your Motu (Rubas) 🐢💙</p>
 </section>
 
-<!-- SONG -->
+<section class="card">
+  <h2>🎤 Hear My Voice</h2>
+  <audio id="voice" controls>
+    <source src="voice-message.mp3" type="audio/mpeg">
+  </audio>
+</section>
+
 <section class="card">
   <h2>🎵 Our Song</h2>
-  <p>“Those Eyes” — New West</p>
-  <audio controls preload="metadata">
-  <source src="those-eyes.mp3" type="audio/mpeg">
-</audio>
-  <p style="font-size:0.9em; opacity:0.8;">
-    (Put the song file in the same folder)
-  </p>
+  <audio id="song" controls>
+    <source src="those-eyes.mp3" type="audio/mpeg">
+  </audio>
 </section>
 
-<!-- TURTLE -->
-<section class="card">
-  <h2>🐢 Why Turtle?</h2>
-  <button onclick="showTurtle()">Click to find out</button>
-  <p id="turtleText" class="hidden">
-    Because you’re calm, comforting, cute in your own way,
-    and no matter how slow things get, you always feel like home.<br><br>
-    My Eshu Turtle 🐢💙
-  </p>
-</section>
-
-<!-- FINAL NOTE -->
-<section class="card">
-  <h2>🌙 Final Note</h2>
-  <p>
-    Distance can’t stop love.<br>
-    It can’t stop me from choosing you, celebrating you,
-    and loving you every single day.<br><br>
-    Always yours —<br>
-    <b>Motu & Cutesuii</b> 💙
-  </p>
-</section>
-
-<!-- FINAL IMAGE -->
-<section class="card">
-  <p style="font-size:1.1em; margin-bottom:15px;">
-    Even when we’re apart,<br>
-    it still feels like we’re holding on to each other.
-  </p>
-
-  <img 
-    src="us.jpg"
-    alt="Always us"
-    style="
-      width:100%;
-      max-width:400px;
-      border-radius:20px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    "
-  >
-
-  <p style="margin-top:15px; opacity:0.8;">
-    Always us 🐢💙
-  </p>
+<section class="card hidden" id="surprise">
+  <h2>🎁 Surprise</h2>
+  <p>I choose you — always 🐢💙</p>
 </section>
 
 <footer>
-  Made with love by Motu & Cutesuii 🐢
+  Made with love by Motu 🐢💙
 </footer>
 
 <script>
-function showTurtle() {
-  document.getElementById("turtleText").classList.remove("hidden");
+/* UNLOCK */
+function unlock() {
+  const box = document.getElementById("lockBox");
+  if (pass.value.toLowerCase() === "eshal") {
+    lock.style.display = "none";
+  } else {
+    error.style.display = "block";
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),400);
+  }
 }
 
+/* COUNTDOWN + MIDNIGHT CONFETTI */
 const birthday = new Date("December 29, 2025 00:00:00").getTime();
-
 setInterval(() => {
-  const now = new Date().getTime();
+  const now = Date.now();
   const diff = birthday - now;
+  const el = countdown;
 
   if (diff <= 0) {
-    document.getElementById("countdown").innerHTML =
-      "🎉 Happy Birthday Eshal 🐢💙";
+    el.innerHTML = "🎉 Happy Birthday Eshal 🐢💙";
+    el.classList.add("glow");
+    surprise.classList.remove("hidden");
+    launchConfetti();
     return;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  document.getElementById("countdown").innerHTML =
-    `${days} days ${hours}h ${minutes}m ${seconds}s`;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  const s = Math.floor(diff / 1000) % 60;
+  el.innerHTML = `${d} days ${h}h ${m}m ${s}s`;
 }, 1000);
+
+/* CONFETTI */
+function launchConfetti() {
+  setInterval(() => {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.innerHTML = ["💙","🎀","🐢","✨"][Math.floor(Math.random()*4)];
+    c.style.left = Math.random()*100+"vw";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }, 200);
+}
+
+/* HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💙";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add("show")));
+document.querySelectorAll("section").forEach(s=>obs.observe(s));
+
+/* AUTO-SCROLL LETTER */
+let scrolled=false;
+const letter=document.getElementById("letter");
+const autoScroll=new IntersectionObserver(e=>{
+  if(e[0].isIntersecting && !scrolled){
+    scrolled=true;
+    let y=window.scrollY;
+    const i=setInterval(()=>{
+      window.scrollTo(0,y+=1);
+      if(y>letter.offsetTop+200) clearInterval(i);
+    },30);
+  }
+});
+autoScroll.observe(letter);
+
+/* AUDIO FADE */
+function fade(a,t){
+  const s=(t-a.volume)/20;
+  const i=setInterval(()=>{
+    a.volume=Math.min(1,Math.max(0,a.volume+s));
+    if(Math.abs(a.volume-t)<0.02) clearInterval(i);
+  },50);
+}
+voice.onplay=()=>!song.paused&&fade(song,0.1);
+voice.onended=()=>fade(song,1);
 </script>
 
 </body>
-
 </html>
+
 
